@@ -6,14 +6,14 @@ describe FCReminder::Reminder do
   context "#initialize" do
     it "allows to configure reminder by using a block" do
       value = test
-      reminder = FCReminder::Reminder.new { |config| config.test = value }
+      reminder = FCReminder.build { |config| config.test = value }
       expect(reminder.test).to eq(value)
     end
   end
 
   context "setters" do
     it "allows to configure reminder by using setters" do
-      reminder = FCReminder::Reminder.new
+      reminder = FCReminder.build
       reminder.test = test
       expect(reminder.test).to eq(test)
     end
@@ -22,7 +22,7 @@ describe FCReminder::Reminder do
   context "#run" do
     it "allows to set consumer data by using a block" do
       value = test
-      reminder = FCReminder::Reminder.new
+      reminder = FCReminder.build
       reminder.run { |config| config.test = value }
       expect(reminder.test).to eq(value)
     end
