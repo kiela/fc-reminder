@@ -1,13 +1,16 @@
 module FCReminder
   class Reminder
-    attr_accessor :test
+    attr_accessor :team_name
+    attr_reader :provider
 
     def initialize(&customization_block)
       eval_block &customization_block
+      @provider = Providers::LiveScore.new
     end
 
     def run(&customization_block)
       eval_block &customization_block
+      provider.run(team_name: team_name)
     end
 
     private
