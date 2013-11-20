@@ -27,13 +27,24 @@ describe FCReminder::Reminder do
   context "setters" do
     subject(:reminder) { FCReminder.build }
 
-    it "allows to configure reminder by using setters" do
+    it "allows to set team_name attribute" do
+      expect(reminder.team_name).to be_nil
       reminder.team_name = team_name
       expect(reminder.team_name).to eq(team_name)
     end
 
+    it "allows to set recipient attribute" do
+      expect(reminder.recipient).to be_nil
+      reminder.recipient = recipient
+      expect(reminder.recipient).to eq(recipient)
+    end
+
     it "disallows to configure provider by using setter" do
       expect(reminder).not_to respond_to(:provider=)
+    end
+
+    it "disallows to configure gateway by using setter" do
+      expect(reminder).not_to respond_to(:gateway=)
     end
   end
 

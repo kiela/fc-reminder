@@ -1,7 +1,9 @@
 require 'fc-reminder/version'
 require 'fc-reminder/reminder'
-require 'fc-reminder/gateway'
-require 'fc-reminder/provider'
+require 'fc-reminder/gateways/base'
+require 'fc-reminder/gateways/twilio'
+require 'fc-reminder/providers/base'
+require 'fc-reminder/providers/livescore'
 
 module FCReminder
   def self.build(&customization_block)
