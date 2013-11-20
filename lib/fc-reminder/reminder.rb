@@ -1,16 +1,18 @@
 module FCReminder
   class Reminder
-    attr_accessor :team_name
-    attr_reader :provider
+    attr_reader :provider, :gateway
+    attr_accessor :team_name, :recipient
 
     def initialize(&customization_block)
       eval_block &customization_block
       @provider = Providers::LiveScore.new
+      @gateway = Gateways::Twilio.new
     end
 
     def run(&customization_block)
       eval_block &customization_block
-      provider.run(team_name: team_name)
+      result = provider.run(team_name: team_name)
+      gateway.send(recipient: recipient, data: result)
     end
 
     private

@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.require_path = ['lib']
 
   spec.add_dependency 'mechanize', '~> 2.7.3'
+  spec.add_dependency 'twilio-ruby', '~> 3.11.4'
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'

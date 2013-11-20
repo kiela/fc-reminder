@@ -2,17 +2,25 @@ require 'spec_helper'
 
 describe FCReminder::Reminder do
   let(:team_name) { "Team Name" }
+  let(:recipient) { "+1234567890" }
 
   context "#initialize" do
     it "sets default values" do
       reminder = FCReminder.build
       expect(reminder.provider).to be_kind_of(FCReminder::Providers::Base)
+      expect(reminder.gateway).to be_kind_of(FCReminder::Gateways::Base)
     end
 
-    it "allows to configure reminder by using a block" do
-      team = team_name
-      reminder = FCReminder.build { |config| config.team_name = team }
+    it "allows to configure attributes by using a block" do
+      team, receiver = team_name, recipient
+
+      reminder = FCReminder.build do |config|
+        config.team_name = team
+        config.recipient = receiver
+      end
+
       expect(reminder.team_name).to eq(team)
+      expect(reminder.recipient).to eq(receiver)
     end
   end
 
@@ -32,17 +40,41 @@ describe FCReminder::Reminder do
   context "#run" do
     subject(:reminder) { FCReminder.build }
     before(:each) { fake_page_with_match(reminder.provider.url) }
+    before(:each) { reminder.gateway.stub(:send) {} }
 
     it "allows to set consumer data by using a block" do
-      team = team_name
-      reminder.run { |config| config.team_name = team }
+      expect(reminder.team_name).to be_nil
+      expect(reminder.recipient).to be_nil
+
+      team, receiver = team_name, recipient
+      reminder.run do |config|
+        config.team_name = team
+        config.recipient = receiver
+      end
+
       expect(reminder.team_name).to eq(team)
+      expect(reminder.recipient).to eq(receiver)
     end
 
     it "calls provider for data" do
       expect(reminder.provider).to receive(:run).with(team_name: team_name)
+
       reminder.team_name = team_name
+      reminder.recipient = recipient
+      reminder.run
+    end
+
+    it "calls gateway for sending message" do
+      result = reminder.provider.run(team_name: team_name)
+      expect(reminder.gateway).to receive(:send).with(
+        recipient: recipient,
+        data: result
+      )
+
+      reminder.team_name = team_name
+      reminder.recipient = recipient
       reminder.run
     end
   end
 end
+
