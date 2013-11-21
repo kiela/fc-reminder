@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+class TestProvider < FCReminder::Providers::Base
+end
+
+class TestGateway < FCReminder::Gateways::Base
+end
+
 describe FCReminder::Reminder do
   let(:team_name) { "Team Name" }
   let(:recipient) { "+1234567890" }
@@ -39,12 +45,30 @@ describe FCReminder::Reminder do
       expect(reminder.recipient).to eq(recipient)
     end
 
-    it "disallows to configure provider by using setter" do
-      expect(reminder).not_to respond_to(:provider=)
+    context "provider" do
+      it "disallows to set when instance doesn't inherit from FCReminder::Providers::Base" do
+        expect{ reminder.provider = Object.new }.to raise_error
+      end
+
+      it "allows to set when instance inherits from FCReminder::Providers::Base" do
+        obj = TestProvider.new
+        expect(reminder.provider).not_to eq(obj)
+        reminder.provider = obj
+        expect(reminder.provider).to eq(obj)
+      end
     end
 
-    it "disallows to configure gateway by using setter" do
-      expect(reminder).not_to respond_to(:gateway=)
+    context "gateway" do
+      it "disallows to set when instance doesn't inherit from FCReminder::Gateways::Base" do
+        expect{ reminder.gateway = Object.new }.to raise_error
+      end
+
+      it "allows to set when instance inherits from FCReminder::Gateways::Base" do
+        obj = TestGateway.new
+        expect(reminder.gateway).not_to eq(obj)
+        reminder.gateway = obj
+        expect(reminder.gateway).to eq(obj)
+      end
     end
   end
 

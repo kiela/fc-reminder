@@ -4,9 +4,25 @@ module FCReminder
     attr_accessor :team_name, :recipient
 
     def initialize(&customization_block)
-      eval_block &customization_block
       @provider = Providers::LiveScore.new
       @gateway = Gateways::Twilio.new
+      eval_block &customization_block
+    end
+
+    def provider=(obj)
+      if obj.kind_of? Providers::Base
+        @provider = obj
+      else
+        raise 'Unsupported class: should inherits from FCReminder::Providers::Base'
+      end
+    end
+
+    def gateway=(obj)
+      if obj.kind_of? Gateways::Base
+        @gateway = obj
+      else
+        raise 'Unsupported class: should inherits from FCReminder::Gateways::Base'
+      end
     end
 
     def run(&customization_block)
