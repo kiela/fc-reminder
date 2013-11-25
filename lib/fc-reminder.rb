@@ -4,6 +4,7 @@ require 'fc-reminder/gateways/base'
 require 'fc-reminder/gateways/twilio'
 require 'fc-reminder/providers/base'
 require 'fc-reminder/providers/livescore'
+require 'fc-reminder/runner'
 
 module FCReminder
   def self.build(&customization_block)
