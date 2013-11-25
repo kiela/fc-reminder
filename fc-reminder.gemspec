@@ -15,9 +15,11 @@ Gem::Specification.new do |spec|
 
   spec.files = `git ls-files`.split("\n")
   spec.require_path = ['lib']
+  spec.executables    = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
 
   spec.add_dependency 'mechanize', '~> 2.7.3'
   spec.add_dependency 'twilio-ruby', '~> 3.11.4'
+  spec.add_dependency 'mixlib-cli', '~> 1.3.0'
   spec.add_dependency 'daemons', '~> 1.1.9'
   spec.add_dependency 'clockwork', '~> 0.7.0'
 

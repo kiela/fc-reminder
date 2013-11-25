@@ -1,0 +1,90 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'mixlib/cli'
+require 'fc-reminder'
+
+class FCReminderCLI
+  include Mixlib::CLI
+
+  BIN_BASENAME = File.basename(__FILE__)
+  HOME_DIR = '~/fcreminder'
+
+  banner "Usage: #{BIN_BASENAME} [options] start|stop|restart|run"
+
+  option :team,
+    short:        '-t STRING',
+    long:         '--team STRING',
+    required:     true,
+    on:           :head,
+    description:  'Team name'
+
+  option :recipient,
+    short:        '-r STRING',
+    long:         '--recipient STRING',
+    required:     true,
+    on:           :head,
+    description:  'Recipient data'
+
+  option :check,
+    short:        '-c HH:MM',
+    long:         '--check HH:MM',
+    default:      '12:00',
+    description:  'Time at which presence of a match will be checked (default: 12:00)'
+
+  option :daemon,
+    short:        '-D',
+    long:         '--daemon',
+    default:      false,
+    boolean:      true,
+    description:  'Daemonize process (default: false)'
+
+  option :dir,
+    short:        '-d',
+    long:         '--dir DIR',
+    default:      File.expand_path(HOME_DIR),
+    description:  "Directory to change to once the process starts (default: #{File.expand_path(HOME_DIR)})",
+    proc:         lambda { |dir| File.expand_path(dir) }
+
+  option :monitor,
+    short:        '-m',
+    long:         '--monitor',
+    default:      false,
+    boolean:      true,
+    description:  'Start monitor process (default: false)'
+
+  option :identifier,
+    short:        '-i STRING',
+    long:         '--identifier STRING',
+    description:  'An identifier for the process (default: value of --team)'
+
+  option :log,
+    short:        '-l',
+    long:         '--log',
+    default:      false,
+    boolean:      true,
+    description:  'Redirect both STDOUT and STDERR to a logfile named FCReminder.<team>.output in the directory defined in --log-dir (default: false)'
+
+  option :logdir,
+    long:         '--log-dir DIR',
+    default:      File.expand_path("#{HOME_DIR}/log"),
+    description:  "A specific directory to put the log files into (default: #{File.expand_path("#{HOME_DIR}/log")}",
+    proc:         lambda { |dir| File.expand_path(dir) }
+
+  def run
+    parse_options
+    config[:argv] = opt_parser.parse!(ARGV)
+    create_dir(config[:dir])
+    create_dir(config[:logdir])
+    config
+  end
+
+  private
+
+    def create_dir(dir)
+      Dir.mkdir(dir) unless File.exists?(dir)
+    end
+end
+
+FCReminder::Runner.new(FCReminderCLI.new.run).start
+
