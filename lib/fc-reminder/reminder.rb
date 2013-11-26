@@ -13,7 +13,7 @@ module FCReminder
       if obj.kind_of? Providers::Base
         @provider = obj
       else
-        raise 'Unsupported class: should inherits from FCReminder::Providers::Base'
+        raise 'Provider should inherits from FCReminder::Providers::Base'
       end
     end
 
@@ -21,7 +21,7 @@ module FCReminder
       if obj.kind_of? Gateways::Base
         @gateway = obj
       else
-        raise 'Unsupported class: should inherits from FCReminder::Gateways::Base'
+        raise 'Gateway should inherits from FCReminder::Gateways::Base'
       end
     end
 
