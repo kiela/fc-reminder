@@ -28,13 +28,13 @@ module FCReminder
     def run(&customization_block)
       eval_block &customization_block
       result = provider.run(team_name: team_name)
-      gateway.send(recipient: recipient, data: result)
+      gateway.send(recipient: recipient, data: result) unless result.empty?
     end
 
     private
 
       def eval_block(&block)
-        instance_eval(&block) unless block.nil?
+        instance_eval &block if block_given?
       end
   end
 end
