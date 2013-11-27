@@ -1,10 +1,10 @@
 module FCReminder
   module Providers
     class LiveScore < Base
-      BASE_URL = "http://www.livescore.com/"
+      BASE_URL = "http://www.livescore.com"
 
       def url
-        BASE_URL
+        "#{BASE_URL}/soccer/#{Time.now.strftime("%Y-%m-%d")}"
       end
 
       def run(team_name:)
