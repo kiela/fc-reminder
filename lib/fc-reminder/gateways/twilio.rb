@@ -3,7 +3,7 @@ require 'twilio-ruby'
 module FCReminder
   module Gateways
     class Twilio < Base
-      def send(recipient:, data:)
+      def send(recipient: recipient, data: data)
         client = ::Twilio::REST::Client.new(
           config[:account_sid],
           config[:auth_token]
