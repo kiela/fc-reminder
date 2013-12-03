@@ -4,6 +4,7 @@ fc-reminder
 Football Continuous Reminder
 
 [![Build Status](https://travis-ci.org/kiela/fc-reminder.png)](https://travis-ci.org/kiela/fc-reminder)
+[![Code Climate](https://codeclimate.com/github/kiela/fc-reminder.png)](https://codeclimate.com/github/kiela/fc-reminder)
 
 ## Copyright and License
 
