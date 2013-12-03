@@ -3,6 +3,8 @@ fc-reminder
 
 Football Continuous Reminder
 
+[![Build Status](https://travis-ci.org/kiela/fc-reminder.png)](https://travis-ci.org/kiela/fc-reminder)
+
 ## Copyright and License
 
 Copyright (c) 2013, Kamil Kieliszczyk and Contributors. All Rights Reserved.
