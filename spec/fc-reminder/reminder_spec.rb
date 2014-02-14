@@ -93,7 +93,7 @@ describe FCReminder::Reminder do
 
     it "calls provider for data" do
       reminder.provider.stub(:run) { Hash.new }
-      expect(reminder.provider).to receive(:run).with(team_name: team_name)
+      expect(reminder.provider).to receive(:run).with(team_name)
 
       reminder.team_name = team_name
       reminder.recipient = recipient
@@ -103,10 +103,7 @@ describe FCReminder::Reminder do
     it "calls gateway for sending message" do
       result = {foo: 'bar'}
       reminder.provider.stub(:run) { result }
-      expect(reminder.gateway).to receive(:send).with(
-        recipient: recipient,
-        data: result
-      )
+      expect(reminder.gateway).to receive(:send).with(recipient, result)
 
       reminder.team_name = team_name
       reminder.recipient = recipient

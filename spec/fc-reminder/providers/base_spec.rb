@@ -22,8 +22,8 @@ describe FCReminder::Providers::Base do
 
   context "#run" do
     it "returns empty instance of Hash" do
-      expect(provider.run(team_name: team_name)).to be_instance_of(Hash)
-      expect(provider.run(team_name: team_name)).to be_empty
+      expect(provider.run(team_name)).to be_instance_of(Hash)
+      expect(provider.run(team_name)).to be_empty
     end
   end
 end

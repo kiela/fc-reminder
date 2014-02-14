@@ -15,7 +15,7 @@ module FCReminder
         ""
       end
 
-      def run(team_name: _)
+      def run(team_name)
         Hash.new
       end
     end

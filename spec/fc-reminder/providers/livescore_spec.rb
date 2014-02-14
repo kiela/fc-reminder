@@ -21,8 +21,8 @@ describe FCReminder::Providers::LiveScore do
       before(:each) { fake_page_without_match(provider.url) }
 
       it "returns default value" do
-        default_value = FCReminder::Providers::Base.new.run(team_name: team_name)
-        expect(provider.run(team_name: team_name)).to eq(default_value)
+        default_value = FCReminder::Providers::Base.new.run(team_name)
+        expect(provider.run(team_name)).to eq(default_value)
       end
     end
 
@@ -30,13 +30,13 @@ describe FCReminder::Providers::LiveScore do
       before(:each) { fake_page_with_match(provider.url) }
 
       it "returns non-empty instance of Hash" do
-        expect(provider.run(team_name: team_name)).to be_an_instance_of(Hash)
-        expect(provider.run(team_name: team_name)).not_to be_empty
+        expect(provider.run(team_name)).to be_an_instance_of(Hash)
+        expect(provider.run(team_name)).not_to be_empty
       end
 
       %w(country league time team1 team2).each do |attr|
         it "has return value which includes #{attr}" do
-          expect(provider.run(team_name: team_name)).to have_key(attr.to_sym)
+          expect(provider.run(team_name)).to have_key(attr.to_sym)
         end
       end
     end

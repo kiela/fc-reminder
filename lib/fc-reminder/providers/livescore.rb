@@ -7,14 +7,14 @@ module FCReminder
         "#{BASE_URL}/soccer/#{Time.now.strftime("%Y-%m-%d")}"
       end
 
-      def run(team_name: team_name)
-        cell = search(page: client.get(url), team_name: team_name.downcase)
+      def run(team_name)
+        cell = search(client.get(url), team_name.downcase)
         cell.nil? ? super : prepare_output_from(cell)
       end
 
       private
 
-        def search(page: page, team_name: team_name)
+        def search(page, team_name)
           page.search(".content table.league-table td").find do |td|
             has_team?(td) and team_match?(td, team_name)
           end
@@ -30,12 +30,12 @@ module FCReminder
 
         def prepare_output_from(cell)
           r = Hash.new
-          r.merge!(fetch(attrs: league_attrs, source: cell.parent.parent))
-          r.merge!(fetch(attrs: match_attrs, source: cell.parent))
+          r.merge!(fetch(league_attrs, cell.parent.parent))
+          r.merge!(fetch(match_attrs, cell.parent))
           r
         end
 
-        def fetch(attrs: attrs, source: source)
+        def fetch(attrs, source)
           attrs.inject({}) { |h,(k,v)| h[k] = source.search(v).text.strip; h }
         end
 

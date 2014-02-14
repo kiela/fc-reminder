@@ -3,7 +3,7 @@ module FCReminder
     class Base
       attr_accessor :config
 
-      def send(recipient: _, data: _)
+      def send(recipient, data)
       end
     end
   end
