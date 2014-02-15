@@ -32,9 +32,9 @@ describe FCReminder::Runner do
       options = {daemon: false}
       runner = FCReminder::Runner.new(options)
 
-      Clockwork.stub(:every) { |&block| block.call }
-      runner.reminder.stub(:run) {}
-      runner.stub(:run) {}
+      allow(Clockwork).to receive(:every) { |&block| block.call }
+      allow(runner.reminder).to receive(:run)
+      allow(runner).to receive(:run)
 
       expect(runner.reminder).to receive(:run)
       runner.start
@@ -44,7 +44,7 @@ describe FCReminder::Runner do
       options = {daemon: false}
       runner = FCReminder::Runner.new(options)
 
-      runner.stub(:run) {}
+      allow(runner).to receive(:run)
 
       expect(runner).to receive(:run)
       runner.start
@@ -54,7 +54,7 @@ describe FCReminder::Runner do
       options = {daemon: true}
       runner = FCReminder::Runner.new(options)
 
-      runner.stub(:daemonize) {}
+      allow(runner).to receive(:daemonize)
 
       expect(runner).to receive(:daemonize)
       runner.start
