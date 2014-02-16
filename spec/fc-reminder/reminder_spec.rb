@@ -74,8 +74,8 @@ describe FCReminder::Reminder do
 
   context "#run" do
     subject(:reminder) { FCReminder.build }
-    before(:each) { fake_page_with_match(reminder.provider.url) }
-    before(:each) { allow(reminder.gateway).to receive(:send) }
+    before { fake_page_with_match(reminder.provider.url) }
+    before { allow(reminder.gateway).to receive(:send) }
 
     it "allows to set consumer data by using a block" do
       expect(reminder.team_name).to be_nil

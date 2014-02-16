@@ -18,7 +18,7 @@ describe FCReminder::Providers::LiveScore do
 
   context "#run" do
     context "there is no match that day" do
-      before(:each) { fake_page_without_match(provider.url) }
+      before { fake_page_without_match(provider.url) }
 
       it "returns default value" do
         default_value = FCReminder::Providers::Base.new.run(team_name)
@@ -27,7 +27,7 @@ describe FCReminder::Providers::LiveScore do
     end
 
     context "there is a match that day" do
-      before(:each) { fake_page_with_match(provider.url) }
+      before { fake_page_with_match(provider.url) }
 
       it "returns non-empty instance of Hash" do
         expect(provider.run(team_name)).to be_an_instance_of(Hash)
