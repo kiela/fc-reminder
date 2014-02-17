@@ -5,7 +5,7 @@ describe FCReminder::Gateways::Base do
 
   context "setters" do
     it "allows to set config attribute" do
-      config = {foo: 'bar'}
+      config = { foo: 'bar' }
       expect(gateway.config).to be_nil
       gateway.config = config
       expect(gateway.config).to eq(config)

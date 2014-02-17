@@ -29,7 +29,7 @@ describe FCReminder::Runner do
 
   context "#start" do
     it "sets reminder" do
-      options = {daemon: false}
+      options = { daemon: false }
       runner = FCReminder::Runner.new(options)
 
       allow(Clockwork).to receive(:every) { |&block| block.call }
@@ -41,7 +41,7 @@ describe FCReminder::Runner do
     end
 
     it "starts normal process" do
-      options = {daemon: false}
+      options = { daemon: false }
       runner = FCReminder::Runner.new(options)
 
       allow(runner).to receive(:run)
@@ -51,7 +51,7 @@ describe FCReminder::Runner do
     end
 
     it "starts daemon process" do
-      options = {daemon: true}
+      options = { daemon: true }
       runner = FCReminder::Runner.new(options)
 
       allow(runner).to receive(:daemonize)
