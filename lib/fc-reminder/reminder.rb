@@ -10,7 +10,7 @@ module FCReminder
     end
 
     def provider=(obj)
-      if obj.kind_of? Providers::Base
+      if obj.kind_of? FCReminder::Providers::Base
         @provider = obj
       else
         raise 'Provider should inherits from FCReminder::Providers::Base'
@@ -18,7 +18,7 @@ module FCReminder
     end
 
     def gateway=(obj)
-      if obj.kind_of? Gateways::Base
+      if obj.kind_of? FCReminder::Gateways::Base
         @gateway = obj
       else
         raise 'Gateway should inherits from FCReminder::Gateways::Base'
