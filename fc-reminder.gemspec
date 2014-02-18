@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.authors      = ['Kamil Kieliszczyk']
   spec.email        = ['kamil@kieliszczyk.net']
   spec.description  = 'Simple reminder about an upcoming football game'
-  spec.summary      = 'Simple reminder about an upcoming football game'
+  spec.summary      = spec.description
   spec.homepage     = 'https://github.com/kiela/fc-reminder'
 
   spec.platform = Gem::Platform::RUBY
