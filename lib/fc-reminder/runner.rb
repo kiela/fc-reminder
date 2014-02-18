@@ -48,9 +48,10 @@ module FCReminder
       end
 
       def process_name(options)
-        arr = [PROCESS_NAME]
-        arr.push(options[:identifier] ? options[:identifier] : options[:team])
-        arr.join('.')
+        [
+          PROCESS_NAME,
+          (options[:identifier] ? options[:identifier] : options[:team])
+        ].join('.')
       end
 
       def daemonize_options(options)
