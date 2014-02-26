@@ -12,8 +12,8 @@ module FCReminder
     end
 
     def start
-      set_reminder(@reminder, @options)
-      @options[:daemon] ? daemonize(@options) : run
+      set_reminder
+      @options[:daemon] ? daemonize : run
     end
 
     private
@@ -28,11 +28,11 @@ module FCReminder
         end
       end
 
-      def set_reminder(reminer, options)
-        Clockwork.every(1.day, 'fc-reminder.check', at: options[:check]) do
-          reminder.run do |conf|
-            conf.team_name = options[:team]
-            conf.recipient = options[:recipient]
+      def set_reminder
+        Clockwork.every(1.day, 'fc-reminder.check', at: @options[:check]) do
+          @reminder.run do |conf|
+            conf.team_name = @options[:team]
+            conf.recipient = @options[:recipient]
           end
         end
       end
@@ -41,27 +41,25 @@ module FCReminder
         Clockwork::run
       end
 
-      def daemonize(options)
-        name = process_name(options)
-        opts = daemonize_options(options)
-        Daemons.run_proc(name, opts) { run }
+      def daemonize
+        Daemons.run_proc(process_name, daemonize_options) { run }
       end
 
-      def process_name(options)
+      def process_name
         [
           PROCESS_NAME,
-          (options[:identifier] ? options[:identifier] : options[:team])
+          (@options[:identifier] ? @options[:identifier] : @options[:team])
         ].join('.')
       end
 
-      def daemonize_options(options)
+      def daemonize_options
         {
-          ARGV: options[:argv],
+          ARGV: @options[:argv],
           dir_mode: :normal,
-          dir: options[:dir],
-          monitor: options[:monitor],
-          log_dir: options[:logdir],
-          log_output: options[:log]
+          dir: @options[:dir],
+          monitor: @options[:monitor],
+          log_dir: @options[:logdir],
+          log_output: @options[:log]
         }
       end
   end
