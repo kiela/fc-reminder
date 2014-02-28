@@ -29,10 +29,10 @@ module FCReminder
         end
 
         def prepare_output_from(cell)
-          r = Hash.new
-          r.merge!(fetch(league_attrs, cell.parent.parent))
-          r.merge!(fetch(match_attrs, cell.parent))
-          r
+          Hash.new.tap do |h|
+            h.merge!(fetch(league_attrs, cell.parent.parent))
+            h.merge!(fetch(match_attrs, cell.parent))
+          end
         end
 
         def fetch(attrs, source)
