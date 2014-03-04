@@ -36,7 +36,9 @@ module FCReminder
         end
 
         def fetch(attrs, source)
-          attrs.inject({}) { |h,(k,v)| h[k] = source.search(v).text.strip; h }
+          attrs.inject(Hash.new) do |h,(k,v)|
+            h.merge({ k => source.search(v).text.strip })
+          end
         end
 
         def league_attrs
