@@ -1,8 +1,8 @@
 fc-reminder
 ===========
 
-[![Build Status](https://travis-ci.org/kiela/fc-reminder.png)](https://travis-ci.org/kiela/fc-reminder)
-[![Code Climate](https://codeclimate.com/github/kiela/fc-reminder.png)](https://codeclimate.com/github/kiela/fc-reminder)
+[![Build Status](https://img.shields.io/travis/kiela/fc-reminder.svg)](https://travis-ci.org/kiela/fc-reminder)
+[![Code Climate](https://img.shields.io/codeclimate/github/kiela/fc-reminder.svg)](https://codeclimate.com/github/kiela/fc-reminder)
 
 Have you ever had a situation in which you forgot about an upcoming football match? Or any other match? Or event? Unfortunately me too.. That's why I created Football Continous Reminder - a standalone application which uses [Twilio](https://www.twilio.com/) to sent you a reminder SMS with a date of the next match of your favourite team!
 
