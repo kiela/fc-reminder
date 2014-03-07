@@ -2,20 +2,19 @@ require 'spec_helper'
 
 describe FCReminder::Gateways::Base do
   subject(:gateway) { FCReminder::Gateways::Base.new }
+  let(:config) { { foo: "bar" } }
 
-  context "setters" do
-    it "allows to set config attribute" do
-      config = { foo: 'bar' }
-      expect(gateway.config).to be_nil
-      gateway.config = config
-      expect(gateway.config).to eq(config)
+  context "'config' attribute" do
+    it do
+      expect{ gateway.config = config }
+        .to change{ gateway.config }
+        .from(nil)
+        .to(config)
     end
   end
 
   context "#send" do
-    it "responds to send method" do
-      expect(gateway).to respond_to(:send)
-    end
+    it { expect(gateway).to respond_to(:send).with(2).arguments }
   end
 end
 
