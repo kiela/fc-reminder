@@ -20,4 +20,21 @@ describe FCReminder::Gateways::Twilio do
     it { expect(gateway.client).to be_instance_of(Twilio::REST::Client) }
     it { expect{ gateway.client }.not_to change{ gateway.client } }
   end
+
+  context "#send" do
+    before { gateway.config = config }
+
+    it { expect(gateway).to respond_to(:send).with(2).arguments }
+
+    context "sends message via Twilio REST API" do
+      before do
+        allow_any_instance_of(Twilio::REST::Messages).to receive(:create)
+      end
+
+      it do
+        expect(gateway.client.account.messages).to receive(:create).once
+        gateway.send("recipient", {})
+      end
+    end
+  end
 end
