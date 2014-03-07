@@ -11,9 +11,7 @@ describe FCReminder::Gateways::Twilio do
   end
 
   context "#initialize" do
-    it "should be instance of FCReminder::Gateways::Base" do
-      expect(gateway).to be_kind_of(FCReminder::Gateways::Base)
-    end
+    it { expect(gateway).to be_kind_of(FCReminder::Gateways::Base) }
   end
 
   context "#client" do
