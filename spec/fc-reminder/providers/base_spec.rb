@@ -5,26 +5,22 @@ describe FCReminder::Providers::Base do
   let(:team_name) { "Barcelona" }
 
   context "#initialize" do
-    it "initializes HTTP client" do
-      expect(provider.client).not_to be_nil
+    context "client" do
+      it { expect(provider.client).to be_instance_of Mechanize }
     end
+  end
 
-    it "disallows to change client" do
-      expect(provider).not_to respond_to(:client=)
-    end
+  context "'client' attribute" do
+    it { expect(provider).not_to respond_to(:client=) }
   end
 
   context "#url" do
-    it "returns empty string" do
-      expect(provider.url).to be_empty
-    end
+    it { expect(provider.url).to be_empty }
   end
 
   context "#run" do
-    it "returns empty instance of Hash" do
-      expect(provider.run(team_name)).to be_instance_of(Hash)
-      expect(provider.run(team_name)).to be_empty
-    end
+    it { expect(provider.run(team_name)).to be_instance_of(Hash) }
+    it { expect(provider.run(team_name)).to be_empty }
   end
 end
 
