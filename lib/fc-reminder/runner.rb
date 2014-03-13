@@ -19,8 +19,8 @@ module FCReminder
     private
 
       def initialize_reminder
-        FCReminder.build do |config|
-          config.gateway.config = {
+        FCReminder.build do |reminder|
+          reminder.gateway.config = {
             account_sid: ENV['TWILIO_ACCOUNT_SID'],
             auth_token: ENV['TWILIO_AUTH_TOKEN'],
             phone_number: ENV['TWILIO_PHONE_NUMBER']
@@ -30,9 +30,9 @@ module FCReminder
 
       def set_reminder
         Clockwork.every(1.day, 'fc-reminder.check', at: @options[:check]) do
-          @reminder.run do |conf|
-            conf.team_name = @options[:team]
-            conf.recipient = @options[:recipient]
+          @reminder.run do |config|
+            config.team_name = @options[:team]
+            config.recipient = @options[:recipient]
           end
         end
       end
