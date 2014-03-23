@@ -4,7 +4,7 @@ describe FCReminder::Gateways::Base do
   subject(:gateway) { FCReminder::Gateways::Base.new }
   let(:config) { { foo: "bar" } }
 
-  context "'config' attribute" do
+  describe "#config" do
     it do
       expect{ gateway.config = config }
         .to change{ gateway.config }
@@ -13,7 +13,7 @@ describe FCReminder::Gateways::Base do
     end
   end
 
-  context "#send" do
+  describe "#send" do
     it { expect(gateway).to respond_to(:send).with(2).arguments }
   end
 end
