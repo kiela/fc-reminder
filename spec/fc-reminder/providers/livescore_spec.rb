@@ -28,7 +28,7 @@ describe FCReminder::Providers::LiveScore do
       before { fake_page_with_match(provider.url) }
       subject(:results) { provider.run(team_name) }
 
-      it { expect(results).not_to eq(default_value) }
+      it { expect(results).not_to be_empty }
 
       context "has correct structure" do
         %w(country league time team1 team2).each do |attr|
