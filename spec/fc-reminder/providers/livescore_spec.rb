@@ -4,17 +4,17 @@ describe FCReminder::Providers::LiveScore do
   subject(:provider) { FCReminder::Providers::LiveScore.new }
   let(:team_name) { "Barcelona" }
 
-  context "#initialize" do
+  describe "#initialize" do
     it { expect(provider).to be_kind_of(FCReminder::Providers::Base) }
   end
 
-  context "#url" do
+  describe "#url" do
     it "should be valid" do
       expect(provider.url).to match(/^#{URI::regexp}$/)
     end
   end
 
-  context "#run" do
+  describe "#run" do
     let(:default_value) { FCReminder::Providers::Base.new.run(team_name) }
 
     context "when there is no match that day" do
