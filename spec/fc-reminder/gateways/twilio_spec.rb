@@ -36,8 +36,8 @@ describe FCReminder::Gateways::Twilio do
         body: anything()
       }
 
-      expect(gateway.client.account.messages).
-        to receive(:create)
+      expect(gateway.client.account.messages)
+        .to receive(:create)
         .once
         .with(args)
 
