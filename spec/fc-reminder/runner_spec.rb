@@ -3,26 +3,25 @@ require 'spec_helper'
 describe FCReminder::Runner do
   let(:options) { {foo: "bar"} }
 
-  context "#initialize" do
+  describe "#initialize" do
     subject(:runner) { FCReminder::Runner.new(options) }
 
-    it { expect(runner.reminder).to be_kind_of(FCReminder::Reminder) }
-    it { expect(runner.options).to eq(options) }
+    it "sets #reminder" do
+      expect(runner.reminder).to be_kind_of(FCReminder::Reminder)
+    end
+    it "sets #options" do
+      expect(runner.options).to eq(options)
+    end
   end
 
   context "setters" do
     subject(:runner) { FCReminder::Runner.new(options) }
 
-    context "#options=" do
-      it { expect(runner).not_to respond_to(:options=) }
-    end
-
-    context "#reminder=" do
-      it { expect(runner).not_to respond_to(:reminder=) }
-    end
+    it { expect(runner).not_to respond_to(:options=) }
+    it { expect(runner).not_to respond_to(:reminder=) }
   end
 
-  context "#start" do
+  describe "#start" do
     context "sets reminder" do
       subject(:runner) { FCReminder::Runner.new({ daemon: false }) }
       before do
