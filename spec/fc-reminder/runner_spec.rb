@@ -22,13 +22,14 @@ describe FCReminder::Runner do
   end
 
   describe "#start" do
+    before do
+      allow(Clockwork).to receive(:every) { |&block| block.call }
+      allow(runner.reminder).to receive(:run)
+      allow(runner).to receive(:run)
+    end
+
     context "sets reminder" do
       subject(:runner) { FCReminder::Runner.new({ daemon: false }) }
-      before do
-        allow(Clockwork).to receive(:every) { |&block| block.call }
-        allow(runner.reminder).to receive(:run)
-        allow(runner).to receive(:run)
-      end
 
       it do
         expect(runner.reminder).to receive(:run)
