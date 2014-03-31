@@ -31,17 +31,19 @@ describe FCReminder::Runner do
     context "sets reminder" do
       subject(:runner) { FCReminder::Runner.new({ daemon: false }) }
 
-      it do
-        expect(runner.reminder).to receive(:run)
+      it "calls Clockwork.every" do
+        expect(Clockwork)
+          .to receive(:every)
+          .with(1.day, anything(), { at: anything() })
+
         runner.start
       end
     end
 
     context "starts normal process" do
       subject(:runner) { FCReminder::Runner.new({ daemon: false }) }
-      before { allow(runner).to receive(:run) }
 
-      it do
+      it "runs" do
         expect(runner).to receive(:run)
         runner.start
       end
@@ -49,10 +51,13 @@ describe FCReminder::Runner do
 
     context "starts daemon process" do
       subject(:runner) { FCReminder::Runner.new({ daemon: true }) }
-      before { allow(runner).to receive(:daemonize) }
+      before { allow(Daemons).to receive(:run_proc) }
 
-      it do
-        expect(runner).to receive(:daemonize)
+      it "calls Daemons.run_proc" do
+        expect(Daemons)
+          .to receive(:run_proc)
+          .with(anything(), anything())
+
         runner.start
       end
     end
