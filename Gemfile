@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem  'rake'
 
 group :development do
-  gem 'guard', '~> 2.5.1'
+  gem 'guard', '~> 2.6.0'
   gem 'guard-bundler', '~> 2.0.0'
   gem 'guard-rspec', '~> 4.2.7'
   gem 'pry', "~> 0.9.12.6"
