@@ -29,7 +29,7 @@ describe FCReminder::Gateways::Twilio do
     end
 
     it { expect(gateway).to respond_to(:send).with(2).arguments }
-    it "sends message via Twilio REST API" do
+    it "sends message using Twilio REST API" do
       args = {
         from: config[:phone_number],
         to: "recipient",
