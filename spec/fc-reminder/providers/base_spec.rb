@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe FCReminder::Providers::Base do
   subject(:provider) { FCReminder::Providers::Base.new }
-  let(:team_name) { "Barcelona" }
 
   describe "#initialize" do
     it "sets #client" do
@@ -19,6 +18,8 @@ describe FCReminder::Providers::Base do
   end
 
   describe "#run" do
+    let(:team_name) { "Barcelona" }
+
     it { expect(provider.run(team_name)).to be_instance_of(Hash) }
     it { expect(provider.run(team_name)).to be_empty }
   end

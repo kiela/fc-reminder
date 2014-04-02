@@ -6,11 +6,11 @@ describe FCReminder::Runner do
   describe "#initialize" do
     subject(:runner) { FCReminder::Runner.new(options) }
 
-    it "sets #reminder" do
-      expect(runner.reminder).to be_kind_of(FCReminder::Reminder)
-    end
     it "sets #options" do
       expect(runner.options).to eq(options)
+    end
+    it "sets #reminder" do
+      expect(runner.reminder).to be_kind_of(FCReminder::Reminder)
     end
   end
 

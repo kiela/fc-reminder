@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe FCReminder::Gateways::Base do
   subject(:gateway) { FCReminder::Gateways::Base.new }
-  let(:config) { { foo: "bar" } }
 
   describe "#config" do
+    let(:config) { { foo: "bar" } }
+
     it do
       expect{ gateway.config = config }
         .to change{ gateway.config }
