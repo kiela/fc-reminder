@@ -10,6 +10,14 @@ require 'fc-reminder'
 Dir[File.join(GEM_ROOT, "spec", "support", "**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
+  config.before(:suite) do
+    FakeWeb.allow_net_connect = false
+  end
+
+  config.after(:suite) do
+    FakeWeb.allow_net_connect = true
+  end
+
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
