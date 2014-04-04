@@ -12,4 +12,6 @@ matrix:
 env:
   global:
     secure: | # CODECLIMATE_REPO_TOKEN
-      b4b43215d1020497ed9f1e5b4286299d9861ac6c3ec3cff3348a9dbc9a021f3e
+      dZRm2M5OZt5BZsyDAbOCiHmXrO7a9su9dPpV3zL4pPjRgMILcBaijUv4BmC
+      +7u/B/y4UTGDQA1AvaPhol8/lGY4zxlFsEwqwRVJONEUlxbb/FRFOB74TrY
+      RSYBKrBARb8/Xi+TF6VIcqH2d/K4dPEwa6lUX8tpUK3aX61ALKRs4=
