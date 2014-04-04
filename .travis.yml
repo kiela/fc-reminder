@@ -9,3 +9,7 @@ matrix:
   allow_failures:
     - rvm: ruby-head
   fast_finish: true
+env:
+  global:
+    secure: | # CODECLIMATE_REPO_TOKEN
+      b4b43215d1020497ed9f1e5b4286299d9861ac6c3ec3cff3348a9dbc9a021f3e
