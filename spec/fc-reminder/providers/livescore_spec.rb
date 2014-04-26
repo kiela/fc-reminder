@@ -26,20 +26,16 @@ describe FCReminder::Providers::LiveScore do
       before { fake_page_with_match(provider.url) }
       subject(:results) { provider.run(team_name) }
 
-      it { expect(results).not_to be_empty }
+      it "returns the match details" do
+        details = {
+          :country => "Spain",
+          :league => "Liga BBVA",
+          :time => "21:00",
+          :team1 => "Athletic Bilbao",
+          :team2 => "Barcelona"
+        }
 
-      context "has correct structure" do
-        %w(country league time team1 team2).each do |attr|
-          it { expect(results).to have_key(attr.to_sym) }
-        end
-      end
-
-      context "has correct types" do
-        it { expect(results).to be_an_instance_of(Hash) }
-
-        %w(country league time team1 team2).each do |attr|
-          it { expect(results[attr.to_sym]).to be_an_instance_of String }
-        end
+        expect(results).to eq(details)
       end
     end
   end
