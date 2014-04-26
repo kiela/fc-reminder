@@ -15,13 +15,11 @@ describe FCReminder::Providers::LiveScore do
   end
 
   describe "#run" do
-    let(:default_value) { FCReminder::Providers::Base.new.run(team_name) }
-
     context "when there is no match that day" do
       before { fake_page_without_match(provider.url) }
       subject(:results) { provider.run(team_name) }
 
-      it { expect(results).to eq(default_value) }
+      it { expect(results).to be_empty }
     end
 
     context "when there is a match that day" do
