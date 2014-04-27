@@ -10,23 +10,50 @@ describe FCReminder::Reminder do
   let(:team_name) { "Team Name" }
   let(:recipient) { "+1234567890" }
 
-  context "#initialize" do
-    it "sets default values" do
-      reminder = FCReminder.build
-      expect(reminder.provider).to be_kind_of(FCReminder::Providers::Base)
-      expect(reminder.gateway).to be_kind_of(FCReminder::Gateways::Base)
+  describe "#initialize" do
+    context "sets default values" do
+      subject(:reminder) { FCReminder.build }
+
+      it "sets #provider attribute" do
+        expect(reminder.provider)
+          .to be_instance_of(FCReminder::Providers::LiveScore)
+      end
+      it "sets #gatewaya attribute" do
+        expect(reminder.gateway)
+          .to be_instance_of(FCReminder::Gateways::Twilio)
+      end
+      it "sets #team_name attribute" do
+        expect(reminder.team_name).to be_nil
+      end
+      it "sets #recipient attribute" do
+        expect(reminder.recipient).to be_nil
+      end
     end
 
-    it "allows to configure attributes by using a block" do
-      team, receiver = team_name, recipient
+    context "allows to configure attributes by using a block" do
+      subject(:reminder) do
+        team, receiver = team_name, recipient
 
-      reminder = FCReminder.build do |config|
-        config.team_name = team
-        config.recipient = receiver
+        FCReminder.build do |config|
+          config.provider = TestProvider.new
+          config.gateway = TestGateway.new
+          config.team_name = team
+          config.recipient = receiver
+        end
       end
 
-      expect(reminder.team_name).to eq(team)
-      expect(reminder.recipient).to eq(receiver)
+      it "sets #provider attribute" do
+        expect(reminder.provider).to be_instance_of(TestProvider)
+      end
+      it "sets #gateway attribute" do
+        expect(reminder.gateway).to be_instance_of(TestGateway)
+      end
+      it "sets #team_name attribute" do
+        expect(reminder.team_name).to eq(team_name)
+      end
+      it "sets #recipient attribute" do
+        expect(reminder.recipient).to eq(recipient)
+      end
     end
   end
 
