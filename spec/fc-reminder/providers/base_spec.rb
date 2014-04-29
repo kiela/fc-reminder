@@ -18,7 +18,7 @@ describe FCReminder::Providers::Base do
   end
 
   describe "#run" do
-    let(:team_name) { "Barcelona" }
+    let(:team_name) { "Team Name" }
 
     it { expect(provider.run(team_name)).to be_instance_of(Hash) }
     it { expect(provider.run(team_name)).to be_empty }
