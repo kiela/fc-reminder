@@ -22,8 +22,9 @@ describe FCReminder::Gateways::Twilio do
   end
 
   context "#send" do
-    before { gateway.config = config }
     before do
+      gateway.config = config
+
       allow(gateway.client)
         .to receive_message_chain(:account, :messages, :create)
     end
