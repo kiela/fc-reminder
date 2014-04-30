@@ -34,7 +34,7 @@ module FCReminder
     private
 
       def eval_block(&block)
-        instance_eval &block if block_given?
+        block.call(self) if block_given?
       end
   end
 end
