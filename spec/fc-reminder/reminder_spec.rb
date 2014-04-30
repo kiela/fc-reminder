@@ -99,27 +99,23 @@ describe FCReminder::Reminder do
     end
   end
 
-  context "#run" do
+  describe "#run" do
     subject(:reminder) { FCReminder.build }
-    before { fake_page_with_match(reminder.provider.url) }
-    before { allow(reminder.gateway).to receive(:send) }
 
-    it "allows to set consumer data by using a block" do
-      expect(reminder.team_name).to be_nil
-      expect(reminder.recipient).to be_nil
+    it "accepts a block" do
+      allow(reminder.provider).to receive(:run).and_return(Hash.new)
+      allow(reminder.gateway).to receive(:send)
 
-      team, receiver = team_name, recipient
-      reminder.run do |config|
-        config.team_name = team
-        config.recipient = receiver
-      end
+      prob = Proc.new{}
+      expect(prob).to receive(:call)
 
-      expect(reminder.team_name).to eq(team)
-      expect(reminder.recipient).to eq(receiver)
+      reminder.run(&prob)
     end
 
     it "calls provider for data" do
       allow(reminder.provider).to receive(:run).and_return(Hash.new)
+      allow(reminder.gateway).to receive(:send)
+
       expect(reminder.provider).to receive(:run).with(team_name)
 
       reminder.team_name = team_name
@@ -128,8 +124,10 @@ describe FCReminder::Reminder do
     end
 
     it "calls gateway for sending message" do
-      result = {foo: 'bar'}
+      result = { foo: 'bar' }
       allow(reminder.provider).to receive(:run).and_return(result)
+      allow(reminder.gateway).to receive(:send)
+
       expect(reminder.gateway).to receive(:send).with(recipient, result)
 
       reminder.team_name = team_name
