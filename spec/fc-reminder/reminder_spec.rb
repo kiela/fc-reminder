@@ -22,12 +22,6 @@ describe FCReminder::Reminder do
         expect(reminder.gateway)
           .to be_instance_of(FCReminder::Gateways::Twilio)
       end
-      it "sets #team_name attribute" do
-        expect(reminder.team_name).to be_nil
-      end
-      it "sets #recipient attribute" do
-        expect(reminder.recipient).to be_nil
-      end
     end
 
     context "allows to configure attributes by using a block" do
@@ -42,35 +36,11 @@ describe FCReminder::Reminder do
         end
       end
 
-      it "sets #provider attribute" do
-        expect(reminder.provider).to be_instance_of(TestProvider)
-      end
-      it "sets #gateway attribute" do
-        expect(reminder.gateway).to be_instance_of(TestGateway)
-      end
-      it "sets #team_name attribute" do
-        expect(reminder.team_name).to eq(team_name)
-      end
-      it "sets #recipient attribute" do
-        expect(reminder.recipient).to eq(recipient)
-      end
     end
   end
 
   context "setters" do
     subject(:reminder) { FCReminder.build }
-
-    it "allows to set team_name attribute" do
-      expect(reminder.team_name).to be_nil
-      reminder.team_name = team_name
-      expect(reminder.team_name).to eq(team_name)
-    end
-
-    it "allows to set recipient attribute" do
-      expect(reminder.recipient).to be_nil
-      reminder.recipient = recipient
-      expect(reminder.recipient).to eq(recipient)
-    end
 
     context "provider" do
       it "disallows to set when instance doesn't inherit from FCReminder::Providers::Base" do

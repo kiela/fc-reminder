@@ -14,13 +14,6 @@ describe FCReminder::Runner do
     end
   end
 
-  context "setters" do
-    subject(:runner) { FCReminder::Runner.new(options) }
-
-    it { expect(runner).not_to respond_to(:options=) }
-    it { expect(runner).not_to respond_to(:reminder=) }
-  end
-
   describe "#start" do
     before do
       allow(Clockwork).to receive(:every) { |&block| block.call }
