@@ -4,6 +4,7 @@ require 'clockwork'
 module FCReminder
   class Runner
     PROCESS_NAME = 'FCReminder'
+    JOB_NAME = 'fc-reminder.check'
     attr_reader :options, :reminder
 
     def initialize(options)
@@ -29,7 +30,7 @@ module FCReminder
       end
 
       def set_reminder
-        Clockwork.every(1.day, 'fc-reminder.check', at: @options[:check]) do
+        Clockwork.every(1.day, JOB_NAME, at: @options[:check]) do
           @reminder.run do |config|
             config.team_name = @options[:team]
             config.recipient = @options[:recipient]

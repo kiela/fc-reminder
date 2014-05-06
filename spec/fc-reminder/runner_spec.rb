@@ -27,7 +27,7 @@ describe FCReminder::Runner do
       it "calls Clockwork.every" do
         expect(Clockwork)
           .to receive(:every)
-          .with(1.day, anything(), { at: anything() })
+          .with(1.day, FCReminder::Runner::JOB_NAME, { at: anything() })
 
         runner.start
       end
