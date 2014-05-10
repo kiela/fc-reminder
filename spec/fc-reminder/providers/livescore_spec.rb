@@ -15,28 +15,25 @@ describe FCReminder::Providers::LiveScore do
   end
 
   describe "#run" do
-    context "when there is no match that day" do
-      before { fake_page_without_match(provider.url) }
-      subject(:results) { provider.run(team_name) }
+    it "returns empty results when there is no match that day" do
+      fake_page_without_match(provider.url)
+      results = provider.run(team_name)
 
-      it { expect(results).to be_empty }
+      expect(results).to be_empty
     end
 
-    context "when there is a match that day" do
-      before { fake_page_with_match(provider.url) }
-      subject(:results) { provider.run(team_name) }
+    it "returns the match details when there is a match that day" do
+      fake_page_with_match(provider.url)
+      results = provider.run(team_name)
+      details = {
+        :country => "Spain",
+        :league => "Liga BBVA",
+        :time => "21:00",
+        :team1 => "Athletic Bilbao",
+        :team2 => "Barcelona"
+      }
 
-      it "returns the match details" do
-        details = {
-          :country => "Spain",
-          :league => "Liga BBVA",
-          :time => "21:00",
-          :team1 => "Athletic Bilbao",
-          :team2 => "Barcelona"
-        }
-
-        expect(results).to eq(details)
-      end
+      expect(results).to eq(details)
     end
-  end
+  end # of "#run"
 end
