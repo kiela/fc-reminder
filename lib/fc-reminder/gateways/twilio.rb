@@ -22,7 +22,7 @@ module FCReminder
 
         def message(data)
           if data.empty?
-            "No match for today"
+            "No match today"
           else
             "Reminder of today's match in #{data[:country]} (#{data[:league]})"\
             " between #{data[:team1]} and #{data[:team2]} at #{data[:time]}"

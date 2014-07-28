@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe FCReminder::Runner do
-  let(:options) { {foo: "bar"} }
+  let(:options) { { foo: "bar" } }
 
   describe "#initialize" do
     subject(:runner) { FCReminder::Runner.new(options) }
