@@ -19,10 +19,10 @@ Gem::Specification.new do |spec|
   spec.require_paths  = ['lib']
 
   spec.add_dependency 'mechanize', '~> 2.7.3'
-  spec.add_dependency 'twilio-ruby', '~> 3.11.5'
+  spec.add_dependency 'twilio-ruby', '~> 3.11.6'
   spec.add_dependency 'mixlib-cli', '~> 1.5.0'
   spec.add_dependency 'daemons', '~> 1.1.9'
-  spec.add_dependency 'clockwork', '~> 0.7.5'
+  spec.add_dependency 'clockwork', '~> 0.7.7'
 
   spec.add_development_dependency 'bundler', '~> 1.6'
 end
